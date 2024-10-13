@@ -1,6 +1,6 @@
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Renderer2 } from '@angular/core';
+import { NgModule } from '@angular/core';
 // Core
 import { GuestComponent } from './core/theme/guest/guest.component';
 import { UserComponent } from './core/theme/user/user.component';
