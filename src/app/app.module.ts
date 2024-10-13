@@ -16,6 +16,7 @@ import { GuestGuard } from './core/guards/guest.guard';
 import { AdminsGuard } from './core/guards/admins.guard';
 import { AlertModule } from './core/modules/alert/alert.module';
 import { ModalModule } from './core/modules/modal/modal.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
 	{
@@ -37,7 +38,10 @@ const routes: Routes = [
 						title: 'Components'
 					}
 				},
-				loadChildren: () => import('./pages/guest/components/components.module').then(m => m.ComponentsModule)
+				loadChildren: () =>
+					import('./pages/guest/components/components.module').then(
+						(m) => m.ComponentsModule
+					)
 			},
 			{
 				path: 'sign',
@@ -103,9 +107,9 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () =>
-					import('./modules/customform/pages/customforms/customforms.module').then(
-						(m) => m.CustomformsModule
-					)
+					import(
+						'./modules/customform/pages/customforms/customforms.module'
+					).then((m) => m.CustomformsModule)
 			},
 			{
 				path: 'translates',
@@ -163,7 +167,12 @@ const routes: Routes = [
 			preloadingStrategy: PreloadAllModules
 		})
 	],
-	providers: [AuthenticatedGuard, GuestGuard, AdminsGuard],
+	providers: [
+		AuthenticatedGuard,
+		GuestGuard,
+		AdminsGuard,
+		{ provide: LocationStrategy, useClass: HashLocationStrategy }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}
