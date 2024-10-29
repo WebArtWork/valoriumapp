@@ -76,6 +76,19 @@ const routes: Routes = [
 					import('./pages/user/profile/profile.module').then(
 						(m) => m.ProfileModule
 					)
+			},
+			{
+				path: 'worlds',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Worlds'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumworld/pages/worlds/worlds.module').then(
+						(m) => m.WorldsModule
+					)
 			}
 		]
 	},
