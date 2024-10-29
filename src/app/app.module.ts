@@ -89,6 +89,19 @@ const routes: Routes = [
 					import('./modules/valoriumworld/pages/worlds/worlds.module').then(
 						(m) => m.WorldsModule
 					)
+			},
+			{
+				path: 'village',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Village'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumvillage/pages/village/village.module').then(
+						(m) => m.VillageModule
+					)
 			}
 		]
 	},

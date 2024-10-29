@@ -99,6 +99,16 @@
 					<span class="material-icons">public</span>
 					<span translate>Theme.Worlds</span>
 				</a>
+				<a
+				[routerLinkActiveOptions]="{ exact: true }"
+				routerLinkActive="_activeLink"
+				routerLink="/village"
+				class="nav__burger-link"
+				(click)="hideSidebar()"
+			>
+				<span class="material-icons">holiday_village</span>
+				<span translate>Theme.Village</span>
+			</a>
 				<hr />
 			</div>
 		</div>
