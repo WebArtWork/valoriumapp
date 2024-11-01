@@ -180,6 +180,45 @@ const routes: Routes = [
 					import('./modules/valoriummap/pages/map/map.module').then(
 						(m) => m.MapModule
 					)
+			},
+			{
+				path: 'unit',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'unit'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumunit/pages/unit/unit.module').then(
+						(m) => m.UnitModule
+					)
+			},
+			{
+				path: 'resourse',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'resourse'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumresourse/pages/resourse/resourse.module').then(
+						(m) => m.ResourseModule
+					)
+			},
+			{
+				path: 'message',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'message'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriummessage/pages/message/message.module').then(
+						(m) => m.MessageModule
+					)
 			}
 		]
 	},
