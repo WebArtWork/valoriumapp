@@ -11,13 +11,16 @@ import {
 export interface Valoriumdungeon extends CrudDocument {
 	name: string;
 	description: string;
+	world: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ValoriumdungeonService extends CrudService<Valoriumdungeon> {
-	valoriumdungeons: Valoriumdungeon[] = [];
+	valoriumdungeones: Valoriumdungeon[] = this.getDocs();
+
+	valoriumdungeonesByWorld: Record<string, Valoriumdungeon[]> = {};
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -34,17 +37,9 @@ export class ValoriumdungeonService extends CrudService<Valoriumdungeon> {
 			_core
 		);
 
-		this.get().subscribe((valoriumdungeons: Valoriumdungeon[]) => this.valoriumdungeons.push(...valoriumdungeons));
+		
+		this.get();
 
-		_core.on('valoriumdungeon_create').subscribe((valoriumdungeon: Valoriumdungeon) => {
-			this.valoriumdungeons.push(valoriumdungeon);
-		});
-
-		_core.on('valoriumdungeon_delete').subscribe((valoriumdungeon: Valoriumdungeon) => {
-			this.valoriumdungeons.splice(
-				this.valoriumdungeons.findIndex((o) => o._id === valoriumdungeon._id),
-				1
-			);
-		});
+		this.filteredDocuments(this.valoriumdungeonesByWorld, 'world');
 	}
 }

@@ -6,6 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
 	path: '',
 	component: DungeonComponent
+},
+{
+	path: 'world/:dungeon_id',
+	component: DungeonComponent
 }];
 
 @NgModule({

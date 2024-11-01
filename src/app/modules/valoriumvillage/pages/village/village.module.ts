@@ -6,6 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
 	path: '',
 	component: VillageComponent
+},
+{
+	path: 'world/:village_id',
+	component: VillageComponent	
 }];
 
 @NgModule({

@@ -11,13 +11,16 @@ import {
 export interface Valoriumvillage extends CrudDocument {
 	name: string;
 	description: string;
+	world: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ValoriumvillageService extends CrudService<Valoriumvillage> {
-	valoriumvillages: Valoriumvillage[] = [];
+	valoriumvillages: Valoriumvillage[] = this.getDocs();
+
+	valoriumvillagesByWorld: Record<string, Valoriumvillage[]> = {};
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -34,17 +37,8 @@ export class ValoriumvillageService extends CrudService<Valoriumvillage> {
 			_core
 		);
 
-		this.get().subscribe((valoriumvillages: Valoriumvillage[]) => this.valoriumvillages.push(...valoriumvillages));
+		this.get();
 
-		_core.on('valoriumvillage_create').subscribe((valoriumvillage: Valoriumvillage) => {
-			this.valoriumvillages.push(valoriumvillage);
-		});
-
-		_core.on('valoriumvillage_delete').subscribe((valoriumvillage: Valoriumvillage) => {
-			this.valoriumvillages.splice(
-				this.valoriumvillages.findIndex((o) => o._id === valoriumvillage._id),
-				1
-			);
-		});
+		this.filteredDocuments(this.valoriumvillagesByWorld, 'world');
 	}
 }

@@ -4,12 +4,15 @@ import { ValoriumdungeonService, Valoriumdungeon } from '../../services/valorium
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
-
+import { Router } from '@angular/router';
 @Component({
 	templateUrl: './dungeon.component.html',
 	styleUrls: ['./dungeon.component.scss'],
 })
 export class DungeonComponent {
+	world = this._router.url.includes('/dungeon/world/')
+	? this._router.url.replace('/dungeon/world/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('dungeon', {
@@ -53,6 +56,9 @@ export class DungeonComponent {
 			this._form.modal<Valoriumdungeon>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.world) {
+						(created as Valoriumdungeon).world = this.world;
+					}
 					this._sv.create(created as Valoriumdungeon);
 					close();
 				},
@@ -95,7 +101,9 @@ export class DungeonComponent {
 	};
 
 	get rows(): Valoriumdungeon[] {
-		return this._sv.valoriumdungeons;
+		return this.world
+			? this._sv.valoriumdungeonesByWorld[this.world]
+			: this._sv.valoriumdungeones;
 	}
 
 	constructor(
@@ -103,6 +111,7 @@ export class DungeonComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

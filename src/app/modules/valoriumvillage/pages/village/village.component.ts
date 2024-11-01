@@ -4,12 +4,16 @@ import { ValoriumvillageService, Valoriumvillage } from '../../services/valorium
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './village.component.html',
 	styleUrls: ['./village.component.scss'],
 })
 export class VillageComponent {
+	world = this._router.url.includes('/village/world/')
+	? this._router.url.replace('/village/world/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('village', {
@@ -53,6 +57,9 @@ export class VillageComponent {
 			this._form.modal<Valoriumvillage>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.world) {
+						(created as Valoriumvillage).world = this.world;
+					}
 					this._sv.create(created as Valoriumvillage);
 					close();
 				},
@@ -95,7 +102,9 @@ export class VillageComponent {
 	};
 
 	get rows(): Valoriumvillage[] {
-		return this._sv.valoriumvillages;
+		return this.world
+			? this._sv.valoriumvillagesByWorld[this.world]
+			: this._sv.valoriumvillages;
 	}
 
 	constructor(
@@ -103,6 +112,7 @@ export class VillageComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

@@ -11,13 +11,17 @@ import {
 export interface Valoriumcastle extends CrudDocument {
 	name: string;
 	description: string;
+	world: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ValoriumcastleService extends CrudService<Valoriumcastle> {
-	valoriumcastles: Valoriumcastle[] = [];
+	valoriumcastles: Valoriumcastle[] = this.getDocs();
+
+	valoriumcastleByWorld: Record<string, Valoriumcastle[]> = {};
+
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -34,17 +38,9 @@ export class ValoriumcastleService extends CrudService<Valoriumcastle> {
 			_core
 		);
 
-		this.get().subscribe((valoriumcastles: Valoriumcastle[]) => this.valoriumcastles.push(...valoriumcastles));
+		this.get();
 
-		_core.on('valoriumcastle_create').subscribe((valoriumcastle: Valoriumcastle) => {
-			this.valoriumcastles.push(valoriumcastle);
-		});
+		this.filteredDocuments(this.valoriumcastleByWorld, 'world');
 
-		_core.on('valoriumcastle_delete').subscribe((valoriumcastle: Valoriumcastle) => {
-			this.valoriumcastles.splice(
-				this.valoriumcastles.findIndex((o) => o._id === valoriumcastle._id),
-				1
-			);
-		});
 	}
 }

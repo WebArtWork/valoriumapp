@@ -4,18 +4,23 @@ import { ValoriumcastleService, Valoriumcastle } from '../../services/valoriumca
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './castle.component.html',
 	styleUrls: ['./castle.component.scss'],
 })
 export class CastleComponent {
+	world = this._router.url.includes('/castle/world/')
+		? this._router.url.replace('/castle/world/', '')
+		: '';
+
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('castle', {
 		formId: 'castle',
 		title: 'Castle',
-		components: [
+		components: [	
 			{
 				name: 'Text',
 				key: 'name',
@@ -53,6 +58,9 @@ export class CastleComponent {
 			this._form.modal<Valoriumcastle>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if(this.world) {
+						(created as Valoriumcastle).world = this.world;
+					}
 					this._sv.create(created as Valoriumcastle);
 					close();
 				},
@@ -94,8 +102,14 @@ export class CastleComponent {
 		],
 	};
 
-	get rows(): Valoriumcastle[] {
+	/*get rows(): Valoriumcastle[] {
 		return this._sv.valoriumcastles;
+	}*/
+
+	get rows(): Valoriumcastle[] {
+		return this.world
+			? this._sv.valoriumcastleByWorld[this.world]
+			: this._sv.valoriumcastles;
 	}
 
 	constructor(
@@ -103,6 +117,7 @@ export class CastleComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

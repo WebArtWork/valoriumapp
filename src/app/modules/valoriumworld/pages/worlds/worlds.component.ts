@@ -52,7 +52,7 @@ export class WorldsComponent {
 		create: () => {
 			this._form.modal<Valoriumworld>(this.form, {
 				label: 'Create',
-				click: (created: unknown, close: () => void) => {
+				click: (created: unknown, close: () => void) => {	
 					this._sv.create(created as Valoriumworld);
 					close();
 				},
@@ -96,6 +96,24 @@ export class WorldsComponent {
 				hrefFunc: (doc: Valoriumworld) => {
 					return '/map/world/' + doc._id;
 				},
+			},
+			{
+				icon: 'castle',
+				hrefFunc: (doc: Valoriumworld) => {
+					return '/castle/world/' + doc._id;
+				}
+			},
+			{
+				icon: 'holiday_village',
+				hrefFunc: (doc: Valoriumworld) => {
+					return '/village/world/' + doc._id;
+				}
+			},
+			{
+				icon: 'landscape',
+				hrefFunc: (doc: Valoriumworld) => {
+					return '/dungeon/world/' + doc._id;
+				}
 			}
 		],
 	};
