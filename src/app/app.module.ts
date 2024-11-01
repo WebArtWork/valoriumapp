@@ -154,6 +154,32 @@ const routes: Routes = [
 					import('./modules/valoriumquest/pages/quest/quest.module').then(
 						(m) => m.QuestModule
 					)
+			},
+			{
+				path: 'building',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'building'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumbuilding/pages/building/building.module').then(
+						(m) => m.BuildingModule	
+					)
+			},
+			{
+				path: 'map',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'map'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriummap/pages/map/map.module').then(
+						(m) => m.MapModule
+					)
 			}
 		]
 	},
