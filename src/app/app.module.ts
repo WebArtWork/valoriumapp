@@ -102,6 +102,58 @@ const routes: Routes = [
 					import('./modules/valoriumvillage/pages/village/village.module').then(
 						(m) => m.VillageModule
 					)
+			},
+			{
+				path: 'castle',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'castle'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumcastle/pages/castle/castle.module').then(
+						(m) => m.CastleModule
+					)
+			},
+			{
+				path: 'trade',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'trade'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumtrade/pages/trade/trade.module').then(
+						(m) => m.TradeModule	
+					)
+			},
+			{
+				path: 'dungeon',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'dungeon'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumdungeon/pages/dungeon/dungeon.module').then(
+						(m) => m.DungeonModule
+					)
+			},
+			{
+				path: 'quest',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'quest'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumquest/pages/quest/quest.module').then(
+						(m) => m.QuestModule
+					)
 			}
 		]
 	},
