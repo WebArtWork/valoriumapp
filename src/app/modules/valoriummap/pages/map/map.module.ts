@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
 	path: '',
 	component: MapComponent
+}, {
+	path: 'world/:world_id',
+	component: MapComponent
 }];
 
 @NgModule({

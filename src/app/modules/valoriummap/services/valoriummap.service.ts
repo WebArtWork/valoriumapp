@@ -11,13 +11,17 @@ import {
 export interface Valoriummap extends CrudDocument {
 	name: string;
 	description: string;
+	world: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ValoriummapService extends CrudService<Valoriummap> {
-	valoriummaps: Valoriummap[] = [];
+	valoriummaps: Valoriummap[] = this.getDocs();
+
+	valoriummapsByWorld: Record<string, Valoriummap[]> = {};
+
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -34,17 +38,8 @@ export class ValoriummapService extends CrudService<Valoriummap> {
 			_core
 		);
 
-		this.get().subscribe((valoriummaps: Valoriummap[]) => this.valoriummaps.push(...valoriummaps));
+		this.get();
 
-		_core.on('valoriummap_create').subscribe((valoriummap: Valoriummap) => {
-			this.valoriummaps.push(valoriummap);
-		});
-
-		_core.on('valoriummap_delete').subscribe((valoriummap: Valoriummap) => {
-			this.valoriummaps.splice(
-				this.valoriummaps.findIndex((o) => o._id === valoriummap._id),
-				1
-			);
-		});
+		this.filteredDocuments(this.valoriummapsByWorld, 'world');
 	}
 }

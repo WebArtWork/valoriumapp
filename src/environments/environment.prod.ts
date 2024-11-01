@@ -1,5 +1,5 @@
 export const environment = {
 	production: true,
 	appId: 'test',
-	url: ''
+	url: 'https://webart.work'
 };

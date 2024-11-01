@@ -91,6 +91,12 @@ export class WorldsComponent {
 					this._form.modalUnique<Valoriumworld>('worlds', 'url', doc);
 				},
 			},
+			{
+				icon: 'map',
+				hrefFunc: (doc: Valoriumworld) => {
+					return '/map/world/' + doc._id;
+				},
+			}
 		],
 	};
 
