@@ -4,12 +4,16 @@ import { ValoriumunitService, Valoriumunit } from '../../services/valoriumunit.s
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './unit.component.html',
 	styleUrls: ['./unit.component.scss'],
 })
 export class UnitComponent {
+	castle = this._router.url.includes('/unit/castle/')
+	? this._router.url.replace('/unit/castle/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('unit', {
@@ -53,6 +57,9 @@ export class UnitComponent {
 			this._form.modal<Valoriumunit>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.castle) {
+						(created as Valoriumunit).castle = this.castle;
+					}
 					this._sv.create(created as Valoriumunit);
 					close();
 				},
@@ -95,7 +102,9 @@ export class UnitComponent {
 	};
 
 	get rows(): Valoriumunit[] {
-		return this._sv.valoriumunits;
+		return this.castle
+			? this._sv.valoriumunitsByWorld[this.castle]
+			: this._sv.valoriumunits;
 	}
 
 	constructor(
@@ -103,6 +112,7 @@ export class UnitComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

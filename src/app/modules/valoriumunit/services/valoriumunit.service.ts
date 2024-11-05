@@ -11,13 +11,17 @@ import {
 export interface Valoriumunit extends CrudDocument {
 	name: string;
 	description: string;
+	castle: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ValoriumunitService extends CrudService<Valoriumunit> {
-	valoriumunits: Valoriumunit[] = [];
+	valoriumunits: Valoriumunit[] = this.getDocs();
+
+	valoriumunitsByWorld: Record<string, Valoriumunit[]> = {};
+
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -33,18 +37,8 @@ export class ValoriumunitService extends CrudService<Valoriumunit> {
 			_alert,
 			_core
 		);
+		this.get();
 
-		this.get().subscribe((valoriumunits: Valoriumunit[]) => this.valoriumunits.push(...valoriumunits));
-
-		_core.on('valoriumunit_create').subscribe((valoriumunit: Valoriumunit) => {
-			this.valoriumunits.push(valoriumunit);
-		});
-
-		_core.on('valoriumunit_delete').subscribe((valoriumunit: Valoriumunit) => {
-			this.valoriumunits.splice(
-				this.valoriumunits.findIndex((o) => o._id === valoriumunit._id),
-				1
-			);
-		});
+		this.filteredDocuments(this.valoriumunitsByWorld, 'castle');
 	}
 }

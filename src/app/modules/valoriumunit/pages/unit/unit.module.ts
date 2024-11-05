@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
 	path: '',
 	component: UnitComponent
+},{
+	path: 'castle/:castle_id',
+	component: UnitComponent
 }];
 
 @NgModule({

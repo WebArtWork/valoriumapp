@@ -104,6 +104,12 @@ export class CastleComponent {
 				hrefFunc: (doc: Valoriumcastle) => {
 					return '/building/castle/' + doc._id;
 				}
+			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumcastle) => {
+					return '/unit/castle/' + doc._id;
+				}
 			}
 		],
 	};
