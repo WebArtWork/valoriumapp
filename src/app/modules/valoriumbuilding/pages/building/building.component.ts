@@ -4,12 +4,16 @@ import { ValoriumbuildingService, Valoriumbuilding } from '../../services/valori
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './building.component.html',
 	styleUrls: ['./building.component.scss'],
 })
 export class BuildingComponent {
+	castle = this._router.url.includes('/building/castle/')
+	? this._router.url.replace('/building/castle/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('building', {
@@ -53,6 +57,9 @@ export class BuildingComponent {
 			this._form.modal<Valoriumbuilding>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.castle) {
+						(created as Valoriumbuilding).castle = this.castle;
+					}
 					this._sv.create(created as Valoriumbuilding);
 					close();
 				},
@@ -95,7 +102,9 @@ export class BuildingComponent {
 	};
 
 	get rows(): Valoriumbuilding[] {
-		return this._sv.valoriumbuildings;
+		return this.castle
+			? this._sv.valoriumbuildingsByWorld[this.castle]
+			: this._sv.valoriumbuildings;
 	}
 
 	constructor(
@@ -103,6 +112,7 @@ export class BuildingComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

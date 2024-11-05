@@ -99,6 +99,12 @@ export class CastleComponent {
 					this._form.modalUnique<Valoriumcastle>('castle', 'url', doc);
 				},
 			},
+			{
+				icon: 'account_balance',
+				hrefFunc: (doc: Valoriumcastle) => {
+					return '/building/castle/' + doc._id;
+				}
+			}
 		],
 	};
 
