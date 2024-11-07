@@ -12,6 +12,7 @@ export interface Valoriumcastle extends CrudDocument {
 	name: string;
 	description: string;
 	world: string;
+	unit: string;
 }
 
 @Injectable({

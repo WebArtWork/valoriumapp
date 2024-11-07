@@ -13,6 +13,7 @@ export class DungeonComponent {
 	world = this._router.url.includes('/dungeon/world/')
 	? this._router.url.replace('/dungeon/world/', '')
 	: '';
+	readonly unitId = this._router.url.includes('/castle/') ? this._router.url.replace('/castle/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('dungeon', {
@@ -97,6 +98,18 @@ export class DungeonComponent {
 					this._form.modalUnique<Valoriumdungeon>('dungeon', 'url', doc);
 				},
 			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumdungeon) => {
+					return '/unit/dungeon/' + doc._id;
+				}
+			},
+			{
+				icon: 'help',
+				hrefFunc: (doc: Valoriumdungeon) => {
+					return '/quest/dungeon/' + doc._id;
+				}
+			}
 		],
 	};
 

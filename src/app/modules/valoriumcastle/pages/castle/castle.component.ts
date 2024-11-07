@@ -15,6 +15,8 @@ export class CastleComponent {
 		? this._router.url.replace('/castle/world/', '')
 		: '';
 
+	readonly unitId = this._router.url.includes('/castle/') ? this._router.url.replace('/castle/', '') : '';
+
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('castle', {
@@ -60,6 +62,10 @@ export class CastleComponent {
 				click: (created: unknown, close: () => void) => {
 					if(this.world) {
 						(created as Valoriumcastle).world = this.world;
+					}
+
+					if (this.unitId) {
+						(created as Valoriumcastle).unit = this.unitId;
 					}
 					this._sv.create(created as Valoriumcastle);
 					close();

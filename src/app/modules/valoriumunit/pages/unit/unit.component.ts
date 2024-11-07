@@ -14,6 +14,8 @@ export class UnitComponent {
 	castle = this._router.url.includes('/unit/castle/')
 	? this._router.url.replace('/unit/castle/', '')
 	: '';
+	readonly castleId = this._router.url.includes('/unit/castle/') ? this._router.url.replace('/unit/castle/', '') : '';
+	readonly dungeonId = this._router.url.includes('/unit/dungeon/') ? this._router.url.replace('/unit/dungeon/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('unit', {
@@ -60,6 +62,12 @@ export class UnitComponent {
 					if (this.castle) {
 						(created as Valoriumunit).castle = this.castle;
 					}
+					if (this.castleId) {
+						(created as Valoriumunit).castle = this.castleId;
+					}
+					if (this.dungeonId) {
+						(created as Valoriumunit).dungeon = this.dungeonId;
+					}
 					this._sv.create(created as Valoriumunit);
 					close();
 				},
@@ -102,10 +110,12 @@ export class UnitComponent {
 	};
 
 	get rows(): Valoriumunit[] {
-		return this.castle
-			? this._sv.valoriumunitsByWorld[this.castle]
-			: this._sv.valoriumunits;
-	}
+        return this.castleId
+            ? this._sv.valoriumunitsByWorld[this.castleId]
+            : this.dungeonId
+                ? this._sv.valoriumunitsByDungeon[this.dungeonId]
+                : this._sv.valoriumunits;
+    }
 
 	constructor(
 		private _sv: ValoriumunitService,
