@@ -12,6 +12,7 @@ export interface Valoriumquest extends CrudDocument {
 	name: string;
 	description: string;
 	castle: string;
+	dungeon: string;
 }
 
 @Injectable({
@@ -21,6 +22,7 @@ export class ValoriumquestService extends CrudService<Valoriumquest> {
 	valoriumquests: Valoriumquest[] = this.getDocs();
 
 	valoriumquestsByWorld: Record<string, Valoriumquest[]> = {};
+	valoriumquestsByDungeon: Record<string, Valoriumquest[]> = {};
 
 	constructor(
 		_http: HttpService,
@@ -40,6 +42,6 @@ export class ValoriumquestService extends CrudService<Valoriumquest> {
 
 		this.get();
 		this.filteredDocuments(this.valoriumquestsByWorld, 'castle');
-
+		this.filteredDocuments(this.valoriumquestsByDungeon, 'dungeon');
 	}
 }

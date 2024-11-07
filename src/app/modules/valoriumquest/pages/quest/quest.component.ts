@@ -14,6 +14,8 @@ export class QuestComponent {
 	castle = this._router.url.includes('/quest/castle/')
 		? this._router.url.replace('/quest/castle/', '')
 		: '';
+		readonly castleId = this._router.url.includes('/quest/castle/') ? this._router.url.replace('/quest/castle/', '') : '';
+		readonly dungeonId = this._router.url.includes('/quest/dungeon/') ? this._router.url.replace('/quest/dungeon/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('quest', {
@@ -57,6 +59,12 @@ export class QuestComponent {
 			this._form.modal<Valoriumquest>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.castleId) {
+						(created as Valoriumquest).castle = this.castleId;
+					}
+					if (this.dungeonId) {
+						(created as Valoriumquest).dungeon = this.dungeonId;
+					}
 					if(this.castle){
 						(created as Valoriumquest).castle = this.castle;
 					}
@@ -102,10 +110,12 @@ export class QuestComponent {
 	};
 
 	get rows(): Valoriumquest[] {
-		return this.castle
-			? this._sv.valoriumquestsByWorld[this.castle]
-			: this._sv.valoriumquests;
-	}
+        return this.castleId
+            ? this._sv.valoriumquestsByWorld[this.castleId]
+            : this.dungeonId
+                ? this._sv.valoriumquestsByDungeon[this.dungeonId]
+                : this._sv.valoriumquests;
+    }
 
 	constructor(
 		private _sv: ValoriumquestService,
