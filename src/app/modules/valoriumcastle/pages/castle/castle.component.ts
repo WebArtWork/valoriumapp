@@ -122,6 +122,12 @@ export class CastleComponent {
 				hrefFunc: (doc: Valoriumcastle) => {
 					return '/quest/castle/' + doc._id;
 				}
+			},
+			{
+				icon: 'swap_horizontal_circle',
+				hrefFunc: (doc: Valoriumcastle) => {
+					return '/trade/castle/' + doc._id;
+				}
 			}
 		],
 	};

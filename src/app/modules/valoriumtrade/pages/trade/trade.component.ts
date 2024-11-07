@@ -4,12 +4,16 @@ import { ValoriumtradeService, Valoriumtrade } from '../../services/valoriumtrad
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './trade.component.html',
 	styleUrls: ['./trade.component.scss'],
 })
 export class TradeComponent {
+	castle = this._router.url.includes('/trade/castle/')
+	? this._router.url.replace('/trade/castle/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('trade', {
@@ -53,6 +57,9 @@ export class TradeComponent {
 			this._form.modal<Valoriumtrade>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if(this.castle){
+						(created as Valoriumtrade).castle = this.castle;
+					}
 					this._sv.create(created as Valoriumtrade);
 					close();
 				},
@@ -95,7 +102,9 @@ export class TradeComponent {
 	};
 
 	get rows(): Valoriumtrade[] {
-		return this._sv.valoriumtrades;
+		return this.castle
+			? this._sv.valoriumtradesByWorld[this.castle]
+			: this._sv.valoriumtrades;
 	}
 
 	constructor(
@@ -103,6 +112,7 @@ export class TradeComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }
