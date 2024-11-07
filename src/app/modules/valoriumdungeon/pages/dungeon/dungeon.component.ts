@@ -109,6 +109,12 @@ export class DungeonComponent {
 				hrefFunc: (doc: Valoriumdungeon) => {
 					return '/quest/dungeon/' + doc._id;
 				}
+			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumdungeon) => {
+					return '/quest/resource/' + doc._id;
+				}
 			}
 		],
 	};

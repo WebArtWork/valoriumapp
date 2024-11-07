@@ -14,6 +14,8 @@ export class ResourceComponent {
 	castle = this._router.url.includes('/resource/castle/')
 	? this._router.url.replace('/resource/castle/', '')
 	: '';
+	readonly castleId = this._router.url.includes('/resource/castle/') ? this._router.url.replace('/resource/castle/', '') : '';
+	readonly dungeonId = this._router.url.includes('/resource/dungeon/') ? this._router.url.replace('/resource/dungeon/', '') : '';
 
 	columns = ['name', 'description'];
 
@@ -58,6 +60,12 @@ export class ResourceComponent {
 			this._form.modal<Valoriumresource>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if (this.castleId) {
+						(created as Valoriumresource).castle = this.castleId;
+					}
+					if (this.dungeonId) {
+						(created as Valoriumresource).dungeon = this.dungeonId;
+					}
 					if(this.castle){
 						(created as Valoriumresource).castle = this.castle;
 					}
@@ -103,10 +111,12 @@ export class ResourceComponent {
 	};
 
 	get rows(): Valoriumresource[] {
-		return this.castle
-			? this._sv.valoriumresourcesByWorld[this.castle]
-			: this._sv.valoriumresources;
-	}
+        return this.castleId
+            ? this._sv.valoriumresourcesByWorld[this.castleId]
+            : this.dungeonId
+                ? this._sv.valoriumresourcesByDungeon[this.dungeonId]
+                : this._sv.valoriumresources;
+    }
 
 	constructor(
 		private _sv: ValoriumresourceService,

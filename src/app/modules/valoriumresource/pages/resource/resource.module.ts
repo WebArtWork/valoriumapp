@@ -9,6 +9,9 @@ const routes: Routes = [{
 },{
 	path: 'castle/:castle_id',
 	component: ResourceComponent
+},{
+	path: 'dungeon/:dungeon_id',
+	component: ResourceComponent
 }];
 
 @NgModule({
