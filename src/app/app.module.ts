@@ -195,19 +195,6 @@ const routes: Routes = [
 					)
 			},
 			{
-				path: 'resourse',
-				canActivate: [MetaGuard],
-				data: {
-					meta: {
-						title: 'resourse'
-					}
-				},
-				loadChildren: () =>
-					import('./modules/valoriumresourse/pages/resourse/resourse.module').then(
-						(m) => m.ResourseModule
-					)
-			},
-			{
 				path: 'message',
 				canActivate: [MetaGuard],
 				data: {
@@ -218,6 +205,19 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('./modules/valoriummessage/pages/message/message.module').then(
 						(m) => m.MessageModule
+					)
+			},
+			{
+				path: 'resource',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'resource'
+					}
+				},
+				loadChildren: () =>
+					import('./modules/valoriumresource/pages/resource/resource.module').then(
+						(m) => m.ResourceModule
 					)
 			}
 		]

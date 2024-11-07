@@ -182,16 +182,6 @@
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
-					routerLink="/resourse"
-					class="nav__burger-link"
-					(click)="hideSidebar()"
-				>
-					<span class="material-icons">forest</span>
-					<span translate>Theme.Resourse</span>
-				</a>
-				<a
-					[routerLinkActiveOptions]="{ exact: true }"
-					routerLinkActive="_activeLink"
 					routerLink="/message"
 					class="nav__burger-link"
 					(click)="hideSidebar()"
@@ -199,6 +189,16 @@
 					<span class="material-icons">mail</span>
 					<span translate>Theme.Message</span>
 				</a>
+				<a
+				[routerLinkActiveOptions]="{ exact: true }"
+				routerLinkActive="_activeLink"
+				routerLink="/resource"
+				class="nav__burger-link"
+				(click)="hideSidebar()"
+			>
+				<span class="material-icons">forest</span>
+				<span translate>Theme.Resource</span>
+			</a>
 				<hr />
 			</div>
 		</div>

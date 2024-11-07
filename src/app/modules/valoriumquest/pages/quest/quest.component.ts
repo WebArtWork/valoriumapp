@@ -4,12 +4,16 @@ import { ValoriumquestService, Valoriumquest } from '../../services/valoriumques
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './quest.component.html',
 	styleUrls: ['./quest.component.scss'],
 })
 export class QuestComponent {
+	castle = this._router.url.includes('/quest/castle/')
+		? this._router.url.replace('/quest/castle/', '')
+		: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('quest', {
@@ -53,6 +57,9 @@ export class QuestComponent {
 			this._form.modal<Valoriumquest>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if(this.castle){
+						(created as Valoriumquest).castle = this.castle;
+					}
 					this._sv.create(created as Valoriumquest);
 					close();
 				},
@@ -95,7 +102,9 @@ export class QuestComponent {
 	};
 
 	get rows(): Valoriumquest[] {
-		return this._sv.valoriumquests;
+		return this.castle
+			? this._sv.valoriumquestsByWorld[this.castle]
+			: this._sv.valoriumquests;
 	}
 
 	constructor(
@@ -103,6 +112,7 @@ export class QuestComponent {
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

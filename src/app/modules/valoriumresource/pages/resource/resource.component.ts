@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
 import { AlertService, CoreService } from 'wacom';
-import { ValoriumresourseService, Valoriumresourse } from '../../services/valoriumresourse.service';
-import { FormService } from 'src/app/core/modules/form/form.service';
+import { ValoriumresourceService, Valoriumresource } from '../../services/valoriumresource.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { FormService } from 'src/app/core/modules/form/form.service';
+import { Router } from '@angular/router';
 
 @Component({
-	templateUrl: './resourse.component.html',
-	styleUrls: ['./resourse.component.scss'],
+	templateUrl: './resource.component.html',
+	styleUrls: ['./resource.component.scss'],
 })
-export class ResourseComponent {
+export class ResourceComponent {
+	castle = this._router.url.includes('/resource/castle/')
+	? this._router.url.replace('/resource/castle/', '')
+	: '';
+
 	columns = ['name', 'description'];
 
-	form: FormInterface = this._form.getForm('resourse', {
-		formId: 'resourse',
-		title: 'Resourse',
+	form: FormInterface = this._form.getForm('resource', {
+		formId: 'resource',
+		title: 'Resource',
 		components: [
 			{
 				name: 'Text',
@@ -23,7 +28,7 @@ export class ResourseComponent {
 				fields: [
 					{
 						name: 'Placeholder',
-						value: 'fill resourse title',
+						value: 'fill resource title',
 					},
 					{
 						name: 'Label',
@@ -37,7 +42,7 @@ export class ResourseComponent {
 				fields: [
 					{
 						name: 'Placeholder',
-						value: 'fill resourse description',
+						value: 'fill resource description',
 					},
 					{
 						name: 'Label',
@@ -50,26 +55,29 @@ export class ResourseComponent {
 
 	config = {
 		create: () => {
-			this._form.modal<Valoriumresourse>(this.form, {
+			this._form.modal<Valoriumresource>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
-					this._sv.create(created as Valoriumresourse);
+					if(this.castle){
+						(created as Valoriumresource).castle = this.castle;
+					}
+					this._sv.create(created as Valoriumresource);
 					close();
 				},
 			});
 		},
-		update: (doc: Valoriumresourse) => {
+		update: (doc: Valoriumresource) => {
 			this._form
-				.modal<Valoriumresourse>(this.form, [], doc)
-				.then((updated: Valoriumresourse) => {
+				.modal<Valoriumresource>(this.form, [], doc)
+				.then((updated: Valoriumresource) => {
 					this._core.copy(updated, doc);
 					this._sv.update(doc);
 				});
 		},
-		delete: (doc: Valoriumresourse) => {
+		delete: (doc: Valoriumresource) => {
 			this._alert.question({
 				text: this._translate.translate(
-					'Common.Are you sure you want to delete this Valoriumresourse?'
+					'Common.Are you sure you want to delete this Valoriumresource?'
 				),
 				buttons: [
 					{
@@ -87,22 +95,25 @@ export class ResourseComponent {
 		buttons: [
 			{
 				icon: 'cloud_download',
-				click: (doc: Valoriumresourse) => {
-					this._form.modalUnique<Valoriumresourse>('resourse', 'url', doc);
+				click: (doc: Valoriumresource) => {
+					this._form.modalUnique<Valoriumresource>('resource', 'url', doc);
 				},
 			},
 		],
 	};
 
-	get rows(): Valoriumresourse[] {
-		return this._sv.valoriumresourses;
+	get rows(): Valoriumresource[] {
+		return this.castle
+			? this._sv.valoriumresourcesByWorld[this.castle]
+			: this._sv.valoriumresources;
 	}
 
 	constructor(
-		private _sv: ValoriumresourseService,
+		private _sv: ValoriumresourceService,
 		private _translate: TranslateService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {}
 }

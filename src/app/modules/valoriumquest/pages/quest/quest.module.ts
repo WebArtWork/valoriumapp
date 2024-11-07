@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
 	path: '',
 	component: QuestComponent
+},{
+	path: 'castle/:castle_id',
+	component: QuestComponent
 }];
 
 @NgModule({

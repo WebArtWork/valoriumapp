@@ -110,6 +110,18 @@ export class CastleComponent {
 				hrefFunc: (doc: Valoriumcastle) => {
 					return '/unit/castle/' + doc._id;
 				}
+			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumcastle) => {
+					return '/resource/castle/' + doc._id;
+				}
+			},
+			{
+				icon: 'help',
+				hrefFunc: (doc: Valoriumcastle) => {
+					return '/quest/castle/' + doc._id;
+				}
 			}
 		],
 	};

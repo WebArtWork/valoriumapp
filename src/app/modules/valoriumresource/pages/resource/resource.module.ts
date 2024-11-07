@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
-import { ResourseComponent } from './resourse.component';
+import { ResourceComponent } from './resource.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
 	path: '',
-	component: ResourseComponent
+	component: ResourceComponent
+},{
+	path: 'castle/:castle_id',
+	component: ResourceComponent
 }];
 
 @NgModule({
@@ -14,10 +17,10 @@ const routes: Routes = [{
 		CoreModule
 	],
 	declarations: [
-		ResourseComponent
+		ResourceComponent
 	],
 	providers: []
 
 })
 
-export class ResourseModule { }
+export class ResourceModule { }

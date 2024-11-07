@@ -8,7 +8,7 @@ import {
 	CrudDocument,
 } from 'wacom';
 
-export interface Valoriumquest extends CrudDocument {
+export interface Valoriumresource extends CrudDocument {
 	name: string;
 	description: string;
 	castle: string;
@@ -17,10 +17,11 @@ export interface Valoriumquest extends CrudDocument {
 @Injectable({
 	providedIn: 'root',
 })
-export class ValoriumquestService extends CrudService<Valoriumquest> {
-	valoriumquests: Valoriumquest[] = this.getDocs();
+export class ValoriumresourceService extends CrudService<Valoriumresource> {
+	valoriumresources: Valoriumresource[] = this.getDocs();
+	
+	valoriumresourcesByWorld: Record<string, Valoriumresource[]> = {};
 
-	valoriumquestsByWorld: Record<string, Valoriumquest[]> = {};
 
 	constructor(
 		_http: HttpService,
@@ -30,7 +31,7 @@ export class ValoriumquestService extends CrudService<Valoriumquest> {
 	) {
 		super(
 			{
-				name: 'valoriumquest',
+				name: 'valoriumresource',
 			},
 			_http,
 			_store,
@@ -39,7 +40,7 @@ export class ValoriumquestService extends CrudService<Valoriumquest> {
 		);
 
 		this.get();
-		this.filteredDocuments(this.valoriumquestsByWorld, 'castle');
 
+		this.filteredDocuments(this.valoriumresourcesByWorld, 'castle')
 	}
 }
