@@ -104,6 +104,12 @@ export class MapComponent {
 				click: (doc: Valoriummap) => {
 					this._form.modalUnique<Valoriummap>('map', 'url', doc);
 				}
+			},
+			{
+				icon: 'castle',
+				hrefFunc: (doc: Valoriummap) => {
+					return '/castle/map/' + doc._id;
+				}
 			}
 		]
 	};

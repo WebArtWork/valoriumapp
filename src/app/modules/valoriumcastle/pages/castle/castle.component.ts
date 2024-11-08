@@ -14,8 +14,12 @@ export class CastleComponent {
 	world = this._router.url.includes('/castle/world/')
 		? this._router.url.replace('/castle/world/', '')
 		: '';
-
+		readonly map = this._router.url.includes('/castle/map/')
+		? this._router.url.replace('/castle/map/', '')
+		: '';
 	readonly unitId = this._router.url.includes('/castle/') ? this._router.url.replace('/castle/', '') : '';
+
+	
 
 	columns = ['name', 'description'];
 
@@ -63,7 +67,9 @@ export class CastleComponent {
 					if(this.world) {
 						(created as Valoriumcastle).world = this.world;
 					}
-
+					if(this.map) {
+						(created as Valoriumcastle).map = this.map;
+					}
 					if (this.unitId) {
 						(created as Valoriumcastle).unit = this.unitId;
 					}
@@ -142,11 +148,20 @@ export class CastleComponent {
 		return this._sv.valoriumcastles;
 	}*/
 
-	get rows(): Valoriumcastle[] {
+	/*get rows(): Valoriumcastle[] {
 		return this.world
 			? this._sv.valoriumcastleByWorld[this.world]
 			: this._sv.valoriumcastles;
-	}
+	}*/
+
+	get rows(): Valoriumcastle[] {
+        return this.world
+		? this._sv.valoriumcastleByWorld[this.world]
+            : this.map
+                ? this._sv.valoriumcastleByMap[this.map]
+                : this._sv.valoriumcastles;
+    }
+
 
 	constructor(
 		private _sv: ValoriumcastleService,
