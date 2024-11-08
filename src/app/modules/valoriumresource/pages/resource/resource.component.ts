@@ -66,9 +66,6 @@ export class ResourceComponent {
 					if (this.dungeonId) {
 						(created as Valoriumresource).dungeon = this.dungeonId;
 					}
-					if(this.castle){
-						(created as Valoriumresource).castle = this.castle;
-					}
 					this._sv.create(created as Valoriumresource);
 					close();
 				},

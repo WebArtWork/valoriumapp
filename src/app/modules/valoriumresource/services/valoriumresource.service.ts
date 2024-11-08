@@ -43,6 +43,6 @@ export class ValoriumresourceService extends CrudService<Valoriumresource> {
 		this.get();
 
 		this.filteredDocuments(this.valoriumresourcesByWorld, 'castle');
-		this.filteredDocuments(this.valoriumresourcesByWorld, 'dungeon');
+		this.filteredDocuments(this.valoriumresourcesByDungeon, 'dungeon');
 	}
 }
