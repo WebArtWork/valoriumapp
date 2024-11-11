@@ -17,6 +17,7 @@ import { AdminsGuard } from './core/guards/admins.guard';
 import { AlertModule } from './core/modules/alert/alert.module';
 import { ModalModule } from './core/modules/modal/modal.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { GameplayComponent } from './core/theme/gameplay/gameplay.component';
 
 const routes: Routes = [
 	{
@@ -267,6 +268,54 @@ const routes: Routes = [
 						'./core/modules/translate/pages/translates/translates.module'
 					).then((m) => m.TranslatesModule)
 			}
+		]
+	},
+	{
+		path: '',
+		canActivate: [AuthenticatedGuard],
+		component: GameplayComponent,
+		children: [
+			/* gameplay */
+			{
+				path: 'map',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Map'
+					}
+				},
+				loadChildren: () => import('./pages/gameplay/map/map.module').then(m => m.MapModule)
+			}, 
+			{
+				path: 'village',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Village'
+					}
+				},
+				loadChildren: () => import('./pages/gameplay/village/village.module').then(m => m.VillageModule)
+			}, 
+			{
+				path: 'join',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Join'
+					}
+				},
+				loadChildren: () => import('./pages/gameplay/join/join.module').then(m => m.JoinModule)
+			}, 
+			{
+				path: 'worlds',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Worlds'
+					}
+				},
+				loadChildren: () => import('./pages/gameplay/worlds/worlds.module').then(m => m.WorldsModule)
+			}, 
 		]
 	},
 	{

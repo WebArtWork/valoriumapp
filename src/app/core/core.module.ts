@@ -14,9 +14,10 @@ import { ModalModule } from './modules/modal/modal.module';
 import { FormcomponentsModule } from './formcomponents/formcomponents.module';
 import { SelectModule } from './modules/select/select.module';
 import { FormModule } from './modules/form/form.module';
+import { GameplayComponent } from './theme/gameplay/gameplay.component';
 
 @NgModule({
-	declarations: [UserComponent],
+	declarations: [UserComponent, GameplayComponent],
 	exports: [
 		/* exports */
 		TranslateModule,
