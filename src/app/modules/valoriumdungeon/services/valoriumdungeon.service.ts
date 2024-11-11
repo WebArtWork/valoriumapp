@@ -13,6 +13,7 @@ export interface Valoriumdungeon extends CrudDocument {
 	description: string;
 	world: string;
 	unit:string;
+	map: string;
 }
 
 @Injectable({
@@ -22,6 +23,7 @@ export class ValoriumdungeonService extends CrudService<Valoriumdungeon> {
 	valoriumdungeones: Valoriumdungeon[] = this.getDocs();
 
 	valoriumdungeonesByWorld: Record<string, Valoriumdungeon[]> = {};
+	valoriumdungeonesByMap: Record<string, Valoriumdungeon[]> = {};
 	constructor(
 		_http: HttpService,
 		_store: StoreService,
@@ -42,5 +44,6 @@ export class ValoriumdungeonService extends CrudService<Valoriumdungeon> {
 		this.get();
 
 		this.filteredDocuments(this.valoriumdungeonesByWorld, 'world');
+		this.filteredDocuments(this.valoriumdungeonesByMap, 'map');
 	}
 }

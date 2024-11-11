@@ -110,6 +110,12 @@ export class MapComponent {
 				hrefFunc: (doc: Valoriummap) => {
 					return '/castle/map/' + doc._id;
 				}
+			},
+			{
+				icon: 'landscape',
+				hrefFunc: (doc: Valoriummap) => {
+					return '/dungeon/map/' + doc._id;
+				}
 			}
 		]
 	};

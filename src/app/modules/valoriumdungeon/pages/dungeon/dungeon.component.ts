@@ -13,6 +13,9 @@ export class DungeonComponent {
 	world = this._router.url.includes('/dungeon/world/')
 	? this._router.url.replace('/dungeon/world/', '')
 	: '';
+	readonly dungeon = this._router.url.includes('/dungeon/map/')
+		? this._router.url.replace('/dungeon/map/', '')
+		: '';
 	readonly unitId = this._router.url.includes('/castle/') ? this._router.url.replace('/castle/', '') : '';
 	columns = ['name', 'description'];
 
@@ -57,6 +60,9 @@ export class DungeonComponent {
 			this._form.modal<Valoriumdungeon>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if(this.dungeon) {
+						(created as Valoriumdungeon).map = this.dungeon;
+					}
 					if (this.world) {
 						(created as Valoriumdungeon).world = this.world;
 					}
@@ -119,11 +125,20 @@ export class DungeonComponent {
 		],
 	};
 
-	get rows(): Valoriumdungeon[] {
+	/*get rows(): Valoriumdungeon[] {
 		return this.world
 			? this._sv.valoriumdungeonesByWorld[this.world]
 			: this._sv.valoriumdungeones;
-	}
+	}*/
+
+
+	get rows(): Valoriumdungeon[] {
+        return this.world
+		? this._sv.valoriumdungeonesByWorld[this.world]
+            : this.dungeon
+                ? this._sv.valoriumdungeonesByMap[this.dungeon]
+                : this._sv.valoriumdungeones;
+    }
 
 	constructor(
 		private _sv: ValoriumdungeonService,
