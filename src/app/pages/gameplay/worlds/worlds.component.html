@@ -1,1 +1,4 @@
-<p>Page Worlds is connected</p>
+<div *ngFor="let world of worlds">
+    <h2>{{ world.name }}</h2>
+    <p>{{ world.description }}</p>
+  </div>

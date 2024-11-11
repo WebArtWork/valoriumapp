@@ -271,7 +271,7 @@ const routes: Routes = [
 		]
 	},
 	{
-		path: '',
+		path: 'gameplay',
 		canActivate: [AuthenticatedGuard],
 		component: GameplayComponent,
 		children: [
@@ -326,7 +326,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	declarations: [AppComponent, GuestComponent, UserComponent],
+	declarations: [AppComponent, GuestComponent, UserComponent, GameplayComponent],
 	imports: [
 		AlertModule,
 		ModalModule,
