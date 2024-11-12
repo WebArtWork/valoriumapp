@@ -16,6 +16,7 @@ export class UnitComponent {
 	: '';
 	readonly castleId = this._router.url.includes('/unit/castle/') ? this._router.url.replace('/unit/castle/', '') : '';
 	readonly dungeonId = this._router.url.includes('/unit/dungeon/') ? this._router.url.replace('/unit/dungeon/', '') : '';
+	readonly building = this._router.url.includes('/unit/building/') ? this._router.url.replace('/unit/building/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('unit', {
@@ -61,6 +62,9 @@ export class UnitComponent {
 				click: (created: unknown, close: () => void) => {
 					if (this.castle) {
 						(created as Valoriumunit).castle = this.castle;
+					}
+					if (this.building) {
+						(created as Valoriumunit).building = this.building;
 					}
 					if (this.castleId) {
 						(created as Valoriumunit).castle = this.castleId;
@@ -114,6 +118,8 @@ export class UnitComponent {
             ? this._sv.valoriumunitsByWorld[this.castleId]
             : this.dungeonId
                 ? this._sv.valoriumunitsByDungeon[this.dungeonId]
+				: this.building
+				? this._sv.valoriumunitsByBuilding[this.building]
                 : this._sv.valoriumunits;
     }
 

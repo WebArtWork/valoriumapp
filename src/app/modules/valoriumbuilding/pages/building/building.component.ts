@@ -98,6 +98,18 @@ export class BuildingComponent {
 					this._form.modalUnique<Valoriumbuilding>('building', 'url', doc);
 				},
 			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumbuilding) => {
+					return '/resource/building/' + doc._id;
+				}
+			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumbuilding) => {
+					return '/unit/building/' + doc._id;
+				}
+			}
 		],
 	};
 
