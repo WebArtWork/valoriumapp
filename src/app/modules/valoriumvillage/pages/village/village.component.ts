@@ -14,6 +14,9 @@ export class VillageComponent {
 	world = this._router.url.includes('/village/world/')
 	? this._router.url.replace('/village/world/', '')
 	: '';
+	readonly map = this._router.url.includes('/village/map/')
+		? this._router.url.replace('/village/map/', '')
+		: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('village', {
@@ -57,6 +60,9 @@ export class VillageComponent {
 			this._form.modal<Valoriumvillage>(this.form, {
 				label: 'Create',
 				click: (created: unknown, close: () => void) => {
+					if(this.map) {
+						(created as Valoriumvillage).map = this.map;
+					}
 					if (this.world) {
 						(created as Valoriumvillage).world = this.world;
 					}
@@ -101,11 +107,19 @@ export class VillageComponent {
 		],
 	};
 
-	get rows(): Valoriumvillage[] {
+	/*get rows(): Valoriumvillage[] {
 		return this.world
 			? this._sv.valoriumvillagesByWorld[this.world]
 			: this._sv.valoriumvillages;
-	}
+	}*/
+
+	get rows(): Valoriumvillage[] {
+        return this.world
+		? this._sv.valoriumvillagesByWorld[this.world]
+            : this.map
+                ? this._sv.valoriumvillagesByMap[this.map]
+                : this._sv.valoriumvillages;
+    }
 
 	constructor(
 		private _sv: ValoriumvillageService,

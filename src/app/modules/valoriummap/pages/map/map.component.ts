@@ -116,6 +116,12 @@ export class MapComponent {
 				hrefFunc: (doc: Valoriummap) => {
 					return '/dungeon/map/' + doc._id;
 				}
+			},
+			{
+				icon: 'holiday_village',
+				hrefFunc: (doc: Valoriummap) => {
+					return '/village/map/' + doc._id;
+				}
 			}
 		]
 	};
