@@ -106,6 +106,18 @@ export class QuestComponent {
 					this._form.modalUnique<Valoriumquest>('quest', 'url', doc);
 				},
 			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumquest) => {
+					return '/unit/quest/' + doc._id;
+				}
+			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumquest) => {
+					return '/resource/quest/' + doc._id;
+				}
+			}
 		],
 	};
 

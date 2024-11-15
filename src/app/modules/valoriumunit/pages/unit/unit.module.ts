@@ -15,6 +15,9 @@ const routes: Routes = [{
 },{
 	path: 'building/:unit_id',
 	component: UnitComponent
+},{
+	path: 'quest/:unit_id',
+	component: UnitComponent
 }];
 
 @NgModule({

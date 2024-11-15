@@ -17,6 +17,7 @@ export class ResourceComponent {
 	readonly castleId = this._router.url.includes('/resource/castle/') ? this._router.url.replace('/resource/castle/', '') : '';
 	readonly dungeonId = this._router.url.includes('/resource/dungeon/') ? this._router.url.replace('/resource/dungeon/', '') : '';
 	readonly building = this._router.url.includes('/resource/building/') ? this._router.url.replace('/resource/building/', '') : '';
+	readonly quest = this._router.url.includes('/resource/quest/') ? this._router.url.replace('/resource/quest/', '') : '';
 
 	columns = ['name', 'description'];
 
@@ -63,6 +64,9 @@ export class ResourceComponent {
 				click: (created: unknown, close: () => void) => {
 					if (this.castleId) {
 						(created as Valoriumresource).castle = this.castleId;
+					}
+					if (this.quest) {
+						(created as Valoriumresource).quest = this.quest;
 					}
 					if (this.building) {
 						(created as Valoriumresource).building = this.building;
@@ -118,6 +122,8 @@ export class ResourceComponent {
             ? this._sv.valoriumresourcesByDungeon[this.dungeonId]
 			: this.building
 			? this._sv.valoriumresourcesByBuilding[this.building]
+			: this.quest
+			? this._sv.valoriumresourcesByQuest[this.quest]
                 : this._sv.valoriumresources;
     }
 
