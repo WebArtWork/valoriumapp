@@ -121,6 +121,12 @@ export class VillageComponent {
 				hrefFunc: (doc: Valoriumvillage) => {
 					return '/resource/village/' + doc._id;
 				}
+			},
+			{
+				icon: 'swap_horizontal_circle',
+				hrefFunc: (doc: Valoriumvillage) => {
+					return '/trade/village/' + doc._id;
+				}
 			}
 		],
 	};

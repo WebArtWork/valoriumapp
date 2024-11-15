@@ -14,6 +14,9 @@ export class TradeComponent {
 	castle = this._router.url.includes('/trade/castle/')
 	? this._router.url.replace('/trade/castle/', '')
 	: '';
+	village = this._router.url.includes('/trade/village/')
+	? this._router.url.replace('/trade/village/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('trade', {
@@ -59,6 +62,9 @@ export class TradeComponent {
 				click: (created: unknown, close: () => void) => {
 					if(this.castle){
 						(created as Valoriumtrade).castle = this.castle;
+					}
+					if(this.village){
+						(created as Valoriumtrade).village = this.village;
 					}
 					this._sv.create(created as Valoriumtrade);
 					close();
@@ -116,6 +122,8 @@ export class TradeComponent {
 	get rows(): Valoriumtrade[] {
 		return this.castle
 			? this._sv.valoriumtradesByWorld[this.castle]
+			: this.village
+			? this._sv.valoriumtradesByVillage[this.village]
 			: this._sv.valoriumtrades;
 	}
 
