@@ -8,10 +8,10 @@ import { Valoriumgameplay, ValoriumgameplayService } from 'src/app/modules/valor
 })
 export class JoinComponent {
 
-	worldId = this._router.url.includes('/worlds/') ? this._router.url.replace('/worlds/', '') : '';
+	worldId = this._router.url.includes('/gameplay/join/') ? this._router.url.replace('/gameplay/join/', '') : '';
 
 	join() {
-		this._vgs.create({ world: this.worldId } as Valoriumgameplay).subscribe(() => { this._router.navigateByUrl('/village') });
+		this._vgs.create({ world: this.worldId } as Valoriumgameplay).subscribe(() => { this._router.navigateByUrl('/gameplay/village') });
 		//
 		// 
 	}
