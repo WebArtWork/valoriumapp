@@ -18,9 +18,11 @@ const routes: Routes = [{
 },{
 	path: 'quest/:resource_id',
 	component: ResourceComponent
-},
-{
+},{
 	path: 'trade/:resource_id',
+	component: ResourceComponent
+},{
+	path: 'village/:resource_id',
 	component: ResourceComponent
 }];
 

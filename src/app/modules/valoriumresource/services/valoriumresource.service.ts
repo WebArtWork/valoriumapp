@@ -16,6 +16,7 @@ export interface Valoriumresource extends CrudDocument {
 	building: string;
 	quest: string;
 	trade: string;
+	village: string;
 }
 
 @Injectable({
@@ -29,6 +30,7 @@ export class ValoriumresourceService extends CrudService<Valoriumresource> {
 	valoriumresourcesByBuilding: Record<string, Valoriumresource[]> = {};
 	valoriumresourcesByQuest: Record<string, Valoriumresource[]> = {};
 	valoriumresourcesByTrade: Record<string, Valoriumresource[]> = {};
+	valoriumresourcesByVillage: Record<string, Valoriumresource[]> = {};
 
 	constructor(
 		_http: HttpService,
@@ -53,5 +55,6 @@ export class ValoriumresourceService extends CrudService<Valoriumresource> {
 		this.filteredDocuments(this.valoriumresourcesByBuilding, 'building');
 		this.filteredDocuments(this.valoriumresourcesByQuest, 'quest');
 		this.filteredDocuments(this.valoriumresourcesByTrade, 'trade');
+		this.filteredDocuments(this.valoriumresourcesByVillage, 'village');
 	}
 }

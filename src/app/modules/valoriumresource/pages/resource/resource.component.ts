@@ -19,7 +19,7 @@ export class ResourceComponent {
 	readonly building = this._router.url.includes('/resource/building/') ? this._router.url.replace('/resource/building/', '') : '';
 	readonly quest = this._router.url.includes('/resource/quest/') ? this._router.url.replace('/resource/quest/', '') : '';
 	readonly trade = this._router.url.includes('/resource/trade/') ? this._router.url.replace('/resource/trade/', '') : '';
-
+	readonly village = this._router.url.includes('/resource/village/') ? this._router.url.replace('/resource/village/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('resource', {
@@ -68,6 +68,9 @@ export class ResourceComponent {
 					}
 					if (this.quest) {
 						(created as Valoriumresource).quest = this.quest;
+					}
+					if (this.village) {
+						(created as Valoriumresource).village = this.village;
 					}
 					if (this.trade) {
 						(created as Valoriumresource).trade = this.trade;
@@ -129,7 +132,9 @@ export class ResourceComponent {
 			: this.quest
 			? this._sv.valoriumresourcesByQuest[this.quest]
 			: this.trade
-			? this._sv.valoriumresourcesByTrade[this.trade	]
+			? this._sv.valoriumresourcesByTrade[this.trade]
+			: this.village
+			? this._sv.valoriumresourcesByVillage[this.village]
                 : this._sv.valoriumresources;
     }
 

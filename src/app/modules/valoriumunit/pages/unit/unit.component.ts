@@ -19,6 +19,7 @@ export class UnitComponent {
 	readonly building = this._router.url.includes('/unit/building/') ? this._router.url.replace('/unit/building/', '') : '';
 	readonly quest = this._router.url.includes('/unit/quest/') ? this._router.url.replace('/unit/quest/', '') : '';
 	readonly trade = this._router.url.includes('/unit/trade/') ? this._router.url.replace('/unit/trade/', '') : '';
+	readonly village = this._router.url.includes('/unit/village/') ? this._router.url.replace('/unit/village/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('unit', {
@@ -67,6 +68,9 @@ export class UnitComponent {
 					}
 					if (this.quest) {
 						(created as Valoriumunit).quest = this.quest;
+					}
+					if (this.village) {
+						(created as Valoriumunit).village = this.village;
 					}
 					if (this.trade) {
 						(created as Valoriumunit).trade = this.trade;
@@ -132,6 +136,8 @@ export class UnitComponent {
 			? this._sv.valoriumunitsByQuest[this.quest]
 			: this.trade
 			? this._sv.valoriumunitsByTrade[this.trade]
+			: this.village
+			? this._sv.valoriumunitsByVillage[this.village]
 			: this._sv.valoriumunits;
 	}
 

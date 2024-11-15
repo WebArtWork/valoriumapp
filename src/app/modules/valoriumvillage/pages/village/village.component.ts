@@ -109,6 +109,18 @@ export class VillageComponent {
 				hrefFunc: (doc: Valoriumvillage) => {
 					return '/building/village/' + doc._id;
 				}
+			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumvillage) => {
+					return '/unit/village/' + doc._id;
+				}
+			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumvillage) => {
+					return '/resource/village/' + doc._id;
+				}
 			}
 		],
 	};

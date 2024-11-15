@@ -21,6 +21,9 @@ const routes: Routes = [{
 },{
 	path: 'trade/:unit_id',
 	component: UnitComponent
+},{
+	path: 'village/:unit_id',
+	component: UnitComponent
 }];
 
 @NgModule({
