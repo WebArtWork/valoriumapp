@@ -16,6 +16,7 @@ export class QuestComponent {
 		: '';
 		readonly castleId = this._router.url.includes('/quest/castle/') ? this._router.url.replace('/quest/castle/', '') : '';
 		readonly dungeonId = this._router.url.includes('/quest/dungeon/') ? this._router.url.replace('/quest/dungeon/', '') : '';
+		readonly village = this._router.url.includes('/quest/village/') ? this._router.url.replace('/quest/village/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('quest', {
@@ -67,6 +68,9 @@ export class QuestComponent {
 					}
 					if(this.castle){
 						(created as Valoriumquest).castle = this.castle;
+					}
+					if(this.village){
+						(created as Valoriumquest).village = this.village;
 					}
 					this._sv.create(created as Valoriumquest);
 					close();
@@ -126,6 +130,8 @@ export class QuestComponent {
             ? this._sv.valoriumquestsByWorld[this.castleId]
             : this.dungeonId
                 ? this._sv.valoriumquestsByDungeon[this.dungeonId]
+			: this.village
+			? this._sv.valoriumquestsByVillage[this.village]
                 : this._sv.valoriumquests;
     }
 
