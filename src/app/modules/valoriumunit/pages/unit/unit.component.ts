@@ -18,6 +18,7 @@ export class UnitComponent {
 	readonly dungeonId = this._router.url.includes('/unit/dungeon/') ? this._router.url.replace('/unit/dungeon/', '') : '';
 	readonly building = this._router.url.includes('/unit/building/') ? this._router.url.replace('/unit/building/', '') : '';
 	readonly quest = this._router.url.includes('/unit/quest/') ? this._router.url.replace('/unit/quest/', '') : '';
+	readonly trade = this._router.url.includes('/unit/trade/') ? this._router.url.replace('/unit/trade/', '') : '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('unit', {
@@ -66,6 +67,9 @@ export class UnitComponent {
 					}
 					if (this.quest) {
 						(created as Valoriumunit).quest = this.quest;
+					}
+					if (this.trade) {
+						(created as Valoriumunit).trade = this.trade;
 					}
 					if (this.building) {
 						(created as Valoriumunit).building = this.building;
@@ -126,6 +130,8 @@ export class UnitComponent {
 			? this._sv.valoriumunitsByBuilding[this.building]
 			: this.quest
 			? this._sv.valoriumunitsByQuest[this.quest]
+			: this.trade
+			? this._sv.valoriumunitsByTrade[this.trade]
 			: this._sv.valoriumunits;
 	}
 

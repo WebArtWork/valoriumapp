@@ -18,6 +18,9 @@ const routes: Routes = [{
 },{
 	path: 'quest/:unit_id',
 	component: UnitComponent
+},{
+	path: 'trade/:unit_id',
+	component: UnitComponent
 }];
 
 @NgModule({

@@ -98,6 +98,18 @@ export class TradeComponent {
 					this._form.modalUnique<Valoriumtrade>('trade', 'url', doc);
 				},
 			},
+			{
+				icon: 'forest',
+				hrefFunc: (doc: Valoriumtrade) => {
+					return '/resource/trade/' + doc._id;
+				}
+			},
+			{
+				icon: 'person',
+				hrefFunc: (doc: Valoriumtrade) => {
+					return '/unit/trade/' + doc._id;
+				}
+			}
 		],
 	};
 

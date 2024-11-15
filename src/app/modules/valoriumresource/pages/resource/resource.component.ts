@@ -18,6 +18,7 @@ export class ResourceComponent {
 	readonly dungeonId = this._router.url.includes('/resource/dungeon/') ? this._router.url.replace('/resource/dungeon/', '') : '';
 	readonly building = this._router.url.includes('/resource/building/') ? this._router.url.replace('/resource/building/', '') : '';
 	readonly quest = this._router.url.includes('/resource/quest/') ? this._router.url.replace('/resource/quest/', '') : '';
+	readonly trade = this._router.url.includes('/resource/trade/') ? this._router.url.replace('/resource/trade/', '') : '';
 
 	columns = ['name', 'description'];
 
@@ -67,6 +68,9 @@ export class ResourceComponent {
 					}
 					if (this.quest) {
 						(created as Valoriumresource).quest = this.quest;
+					}
+					if (this.trade) {
+						(created as Valoriumresource).trade = this.trade;
 					}
 					if (this.building) {
 						(created as Valoriumresource).building = this.building;
@@ -124,6 +128,8 @@ export class ResourceComponent {
 			? this._sv.valoriumresourcesByBuilding[this.building]
 			: this.quest
 			? this._sv.valoriumresourcesByQuest[this.quest]
+			: this.trade
+			? this._sv.valoriumresourcesByTrade[this.trade	]
                 : this._sv.valoriumresources;
     }
 

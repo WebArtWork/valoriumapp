@@ -15,9 +15,12 @@ const routes: Routes = [{
 },{
 	path: 'building/:resource_id',
 	component: ResourceComponent
+},{
+	path: 'quest/:resource_id',
+	component: ResourceComponent
 },
 {
-	path: 'quest/:resource_id',
+	path: 'trade/:resource_id',
 	component: ResourceComponent
 }];
 
