@@ -14,6 +14,9 @@ export class BuildingComponent {
 	castle = this._router.url.includes('/building/castle/')
 	? this._router.url.replace('/building/castle/', '')
 	: '';
+	village = this._router.url.includes('/building/village/')
+	? this._router.url.replace('/building/village/', '')
+	: '';
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('building', {
@@ -59,6 +62,9 @@ export class BuildingComponent {
 				click: (created: unknown, close: () => void) => {
 					if (this.castle) {
 						(created as Valoriumbuilding).castle = this.castle;
+					}
+					if (this.village) {
+						(created as Valoriumbuilding).village = this.village;
 					}
 					this._sv.create(created as Valoriumbuilding);
 					close();
@@ -116,6 +122,8 @@ export class BuildingComponent {
 	get rows(): Valoriumbuilding[] {
 		return this.castle
 			? this._sv.valoriumbuildingsByWorld[this.castle]
+			: this.village
+			? this._sv.valoriumbuildingsByVillage[this.village]
 			: this._sv.valoriumbuildings;
 	}
 

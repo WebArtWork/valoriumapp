@@ -104,6 +104,12 @@ export class VillageComponent {
 					this._form.modalUnique<Valoriumvillage>('village', 'url', doc);
 				},
 			},
+			{
+				icon: 'account_balance',
+				hrefFunc: (doc: Valoriumvillage) => {
+					return '/building/village/' + doc._id;
+				}
+			}
 		],
 	};
 
