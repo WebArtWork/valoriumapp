@@ -11,6 +11,7 @@ import {
 export interface Valoriumgameplay extends CrudDocument {
 	name: string;
 	description: string;
+	world: string;
 }
 
 @Injectable({
